@@ -80,6 +80,7 @@ docker-compose build
 ```bash
 docker-compose up java-server go-server -d
 ```
+NOTE: Wait few seconds for Java server to load
 
 ### 4. Test Native Language Pairs
 ```bash

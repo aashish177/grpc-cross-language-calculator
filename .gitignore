@@ -1,0 +1,42 @@
+# Build outputs
+*/build/
+*/target/
+*/node_modules/
+*/__pycache__/
+*/dist/
+*.class
+*.jar
+*.egg-info/
+
+# Generated proto files
+*/*_pb2.py
+*/*_pb2_grpc.py
+*/*.pb.go
+*/calculator.pb.go
+*/calculator_grpc.pb.go
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Docker
+.dockerignore
+
+# Logs
+*.log
+
+# Environment files
+.env
+.venv/
+venv/
+
+# Gradle
+.gradle/
+gradle/wrapper/gradle-wrapper.jar

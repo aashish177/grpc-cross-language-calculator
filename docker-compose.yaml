@@ -1,0 +1,156 @@
+# services:
+#   # Java Server
+#   java-server:
+#     build: 
+#       context: .
+#       dockerfile: java-server/Dockerfile
+#     container_name: java-calculator-server
+#     ports:
+#       - "50051:50051"
+#     networks:
+#       - grpc-network
+
+#   # Go Server  
+#   go-server:
+#     build:
+#       context: .
+#       dockerfile: go-server/Dockerfile
+#     container_name: go-calculator-server
+#     ports:
+#       - "50052:50051"
+#     networks:
+#       - grpc-network
+
+#   # Python Client (connects to Java Server)
+#   python-client:
+#     build:
+#       context: .
+#       dockerfile: python-client/Dockerfile
+#     container_name: python-calculator-client
+#     environment:
+#       - GRPC_SERVER=java-server:50051
+#     depends_on:
+#       - java-server
+#     networks:
+#       - grpc-network
+
+#   # Node.js Client (connects to Go Server)
+#   nodejs-client:
+#     build:
+#       context: .
+#       dockerfile: nodejs-client/Dockerfile
+#     container_name: nodejs-calculator-client
+#     environment:
+#       - GRPC_SERVER=go-server:50051
+#     depends_on:
+#       - go-server
+#     networks:
+#       - grpc-network
+
+#   # Cross-language test: Python client to Go server
+#   python-to-go:
+#     build:
+#       context: .
+#       dockerfile: python-client/Dockerfile
+#     container_name: python-to-go-test
+#     environment:
+#       - GRPC_SERVER=go-server:50051
+#     depends_on:
+#       - go-server
+#     networks:
+#       - grpc-network
+
+#   # Cross-language test: Node.js client to Java server
+#   nodejs-to-java:
+#     build:
+#       context: .
+#       dockerfile: nodejs-client/Dockerfile
+#     container_name: nodejs-to-java-test
+#     environment:
+#       - GRPC_SERVER=java-server:50051
+#     depends_on:
+#       - java-server
+#     networks:
+#       - grpc-network
+
+# networks:
+#   grpc-network:
+#     driver: bridge
+
+services:
+  # Java Server
+  java-server:
+    build: 
+      context: .
+      dockerfile: java-server/Dockerfile
+    container_name: java-calculator-server
+    ports:
+      - "50051:50051"
+    networks:
+      - grpc-network
+
+  # Go Server  
+  go-server:
+    build:
+      context: .
+      dockerfile: go-server/Dockerfile
+    container_name: go-calculator-server
+    ports:
+      - "50052:50051"
+    networks:
+      - grpc-network
+
+  # Python Client (connects to Java Server)
+  python-client:
+    build:
+      context: .
+      dockerfile: python-client/Dockerfile
+    container_name: python-calculator-client
+    environment:
+      - GRPC_SERVER=java-server:50051
+    depends_on:
+      - java-server
+    networks:
+      - grpc-network
+
+  # Node.js Client (connects to Go Server)
+  nodejs-client:
+    build:
+      context: .
+      dockerfile: nodejs-client/Dockerfile
+    container_name: nodejs-calculator-client
+    environment:
+      - GRPC_SERVER=go-server:50051
+    depends_on:
+      - go-server
+    networks:
+      - grpc-network
+
+  # Cross-language tests with proper dependencies
+  python-to-go:
+    build:
+      context: .
+      dockerfile: python-client/Dockerfile
+    container_name: python-to-go-test
+    environment:
+      - GRPC_SERVER=go-server:50051
+    depends_on:
+      - go-server
+    networks:
+      - grpc-network
+
+  nodejs-to-java:
+    build:
+      context: .
+      dockerfile: nodejs-client/Dockerfile
+    container_name: nodejs-to-java-test
+    environment:
+      - GRPC_SERVER=java-server:50051
+    depends_on:
+      - java-server
+    networks:
+      - grpc-network
+
+networks:
+  grpc-network:
+    driver: bridge

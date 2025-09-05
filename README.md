@@ -67,7 +67,7 @@ grpc-docker-project/
 
 ### 1. Clone and Navigate
 ```bash
-git clone <your-repo>
+git clone grpc-project
 cd grpc-project
 ```
 
